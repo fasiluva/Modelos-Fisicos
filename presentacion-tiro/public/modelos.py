@@ -15,12 +15,11 @@ def posicion_tiro_parabolico(r0, v0, t, g=9.81):
 def punto_mas_alto(r0, v0, g=9.81):
     """
     Calcula el tiempo y posición del punto más alto.
-    Solo tiene sentido si la componente vz0 > 0.
     """
     vz0 = v0[2]
 
     if vz0 <= 0:
-        return None, None  # No hay punto máximo (la partícula nunca sube)
+        return 0, r0
 
     t_max = vz0 / g
     pos_max = posicion_tiro_parabolico(r0, v0, t_max, g)
@@ -49,10 +48,9 @@ def graficar_trayectoria(r0, v0, t_final, g=9.81):
     ax.plot(xs, ys, zs, label="Trayectoria")
 
     # Si existe punto máximo, marcarlo
-    if pos_max is not None:
-        ax.scatter(pos_max[0], pos_max[1], pos_max[2], s=60, color='red', label="Punto más alto")
-        ax.text(pos_max[0], pos_max[1], pos_max[2],
-                f"  Máximo\n  z={pos_max[2]:.2f} m", color='red')
+    ax.scatter(pos_max[0], pos_max[1], pos_max[2], s=60, color='red', label="Punto más alto")
+    ax.text(pos_max[0], pos_max[1], pos_max[2],
+            f"  Máximo\n  z={pos_max[2]:.2f} m", color='red')
 
     # Datos del gráfico
     ax.set_title("Trayectoria del tiro parabólico en 3D")
@@ -94,15 +92,6 @@ if __name__ == "__main__":
     print("x(t) =", pos[0])
     print("y(t) =", pos[1])
     print("z(t) =", pos[2])
-
-    # Punto más alto
-    t_max, pos_max = punto_mas_alto(r0, v0)
-    if pos_max is not None:
-        print(f"\nPunto más alto:")
-        print(f"Tiempo t_max = {t_max:.3f} s")
-        print(f"Posición = {pos_max}")
-    else:
-        print("\nNo hay punto más alto porque vz0 ≤ 0.")
 
     # Graficar
     graficar_trayectoria(r0, v0, t)

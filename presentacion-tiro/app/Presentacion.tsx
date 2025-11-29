@@ -161,11 +161,62 @@ const Presentacion = () => {
             </div>
           </div>
           <p className="text-lg text-gray-600 text-center mt-4">
-            Solo existe si vᵤ₀ &gt; 0 (lanzamiento hacia arriba)
+            Si vᵤ₀ &le; 0 , el punto mas alto sera la posicion inicial (tiro parabolico en descenso)
           </p>
         </div>
       )
     },
+
+    // Slide 6: main
+
+    {
+      title: "Código: Función Principal",
+      content: (
+        <div className="space-y-6 text-gray-700">
+          <h2 className="text-3xl font-bold text-blue-600 mb-6">__main__()</h2>
+          <div className="bg-gray-900 text-green-400 p-6 rounded-lg font-mono text-sm">
+            <pre>{`if __name__ == "__main__":
+
+    print("=== Tiro parabólico en 3D con punto máximo ===")
+
+    x0 = float(input("x0 = "))
+    y0 = float(input("y0 = "))
+    z0 = float(input("z0 = "))
+
+    vx0 = float(input("vx0 = "))
+    vy0 = float(input("vy0 = "))
+    vz0 = float(input("vz0 = "))
+
+    t = float(input("Tiempo final t: "))
+
+    r0 = np.array([x0, y0, z0])
+    v0 = np.array([vx0, vy0, vz0])
+
+    # Posición final
+    pos = posicion_tiro_parabolico(r0, v0, t)
+    print("\\nPosición en t =", t, "segundos:")
+    print("x(t) =", pos[0])
+    print("y(t) =", pos[1])
+    print("z(t) =", pos[2])
+
+    # Graficar
+    graficar_trayectoria(r0, v0, t)`}</pre>
+          </div>
+          <div className="space-y-3 mt-6">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-bold">⚙️ Función:</p>
+              <ol className="list-decimal mb-10">
+                <li className="m-2">Tomamos del input el vector posicion inical (x0, y0, z0), el vector velocidad inicial (vx0, vy0, vz0) y el tiempo final (t).</li>
+                <li className="m-2">Guarda el vector posicion y velocidad en 2 arrays diferentes.</li>
+                <li className="m-2">Calcula la posicion en el tiempo final t.</li>
+                <li className="m-2">Grafica el punto final, el punto mas alto y la trayectoria.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
 
     // Slide 6: Estructura del código - Función 1
     {
@@ -182,12 +233,16 @@ const Presentacion = () => {
           </div>
           <div className="space-y-3 mt-6">
             <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="font-bold">📥 Entradas:</p>
+              <p className="font-bold">📥 Entrada:</p>
               <p>r0 (posición inicial), v0 (velocidad inicial), t (tiempo)</p>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
               <p className="font-bold">📤 Salida:</p>
               <p>Posición [x, y, z] en el tiempo t</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-bold">⚙️ Función:</p>
+              <p>Calcula la posicion del punto en la trayectoria en el tiempo t y lo devuelve como un vector posicion.</p>
             </div>
           </div>
         </div>
@@ -202,23 +257,28 @@ const Presentacion = () => {
           <h2 className="text-3xl font-bold text-blue-600 mb-6">punto_mas_alto()</h2>
           <div className="bg-gray-900 text-green-400 p-6 rounded-lg font-mono text-sm">
             <pre>{`def punto_mas_alto(r0, v0, g=9.81):
+ 
     vz0 = v0[2]
-    
+
     if vz0 <= 0:
-        return None, None
-    
+        return 0, r0
+
     t_max = vz0 / g
     pos_max = posicion_tiro_parabolico(r0, v0, t_max, g)
     return t_max, pos_max`}</pre>
           </div>
           <div className="space-y-3 mt-6">
-            <div className="bg-yellow-50 p-4 rounded-lg">
-              <p className="font-bold">⚠️ Verificación:</p>
-              <p>Solo calcula si vᵤ₀ &gt; 0</p>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-bold">📥 Entrada:</p>
+              <p>r0 (vector posición inical), v0 (vector velocidad inicial)</p>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
-              <p className="font-bold">✅ Retorna:</p>
-              <p>Tiempo y posición del punto máximo</p>
+              <p className="font-bold">📤 Salida:</p>
+              <p>Posición [x, y, z] en el tiempo t</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-bold">⚙️ Función:</p>
+              <p>Calcula el punto mas alto de la trayectoria. Si la velocidad en el eje z es menor o igual a 0, el punto mas alto es al comenzar el tiro.</p>
             </div>
           </div>
         </div>
@@ -227,56 +287,54 @@ const Presentacion = () => {
 
     // Slide 8: Visualización
     {
-      title: "Visualización en 3D",
+      title: "Código: Punto Máximo",
       content: (
         <div className="space-y-6 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-600 mb-6">graficar_trayectoria()</h2>
-          <div className="bg-purple-50 p-6 rounded-lg border-2 border-purple-300">
-            <p className="text-xl mb-4 font-bold">¿Qué hace?</p>
-            <ul className="space-y-3 text-lg">
-              <li>✅ Calcula 500 puntos de la trayectoria</li>
-              <li>✅ Crea un gráfico 3D con matplotlib</li>
-              <li>✅ Marca el punto más alto en rojo</li>
-              <li>✅ Muestra proyección en el suelo</li>
-            </ul>
-          </div>
-          <div className="bg-gray-100 p-4 rounded-lg text-center mt-6">
-            <p className="text-lg">📊 <strong>Resultado:</strong> Visualización interactiva de la trayectoria</p>
-          </div>
-        </div>
-      )
-    },
+          <h2 className="text-3xl font-bold text-blue-600 mb-6">punto_mas_alto()</h2>
+          <div className="bg-gray-900 text-green-400 p-6 rounded-lg font-mono text-sm">
+            <pre>{`def graficar_trayectoria(r0, v0, t_final, g=9.81):
+    tiempos = np.linspace(0, t_final, 500)
 
-    // Slide 9: Flujo del programa
-    {
-      title: "Flujo del Programa",
-      content: (
-        <div className="space-y-4 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-600 mb-6">Ejecución del Código</h2>
-          <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-4">
-              <div className="bg-blue-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">1</div>
-              <div className="flex-1 bg-blue-50 p-4 rounded-lg">
-                <strong>Entrada de datos:</strong> Usuario ingresa posición y velocidad inicial
-              </div>
+    xs, ys, zs = [], [], []
+    for t in tiempos:
+        pos = posicion_tiro_parabolico(r0, v0, t, g)
+        xs.append(pos[0]); ys.append(pos[1]); zs.append(pos[2])
+
+    t_max, pos_max = punto_mas_alto(r0, v0, g)
+
+    fig = plt.figure(figsize=(8, 6))
+    ax = fig.add_subplot(111, projection='3d')
+
+    ax.plot(xs, ys, zs, label="Trayectoria")
+
+    ax.scatter(pos_max[0], pos_max[1], pos_max[2], s=60, color='red', label="Punto más alto")
+    ax.text(pos_max[0], pos_max[1], pos_max[2],
+            f"  Máximo\\n  z={pos_max[2]:.2f} m", color='red')
+
+    ax.set_title("Trayectoria del tiro parabólico en 3D")
+    ax.set_xlabel("x(t) [m]")
+    ax.set_ylabel("y(t) [m]")
+    ax.set_zlabel("z(t) [m]")
+    ax.legend()
+
+    ax.plot(xs, ys, np.zeros_like(xs), linestyle='--', alpha=0.3)
+
+    plt.show()`}</pre>
+          </div>
+          <div className="space-y-3 mt-6">
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-bold">📥 Entrada:</p>
+              <p>r0 (vector posición inical), v0 (vector velocidad inicial)</p>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">2</div>
-              <div className="flex-1 bg-green-50 p-4 rounded-lg">
-                <strong>Cálculo de posición:</strong> Evalúa posición en tiempo t
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">3</div>
-              <div className="flex-1 bg-yellow-50 p-4 rounded-lg">
-                <strong>Punto máximo:</strong> Determina altura máxima y momento
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold">4</div>
-              <div className="flex-1 bg-purple-50 p-4 rounded-lg">
-                <strong>Visualización:</strong> Genera gráfico 3D de la trayectoria
-              </div>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="font-bold">⚙️ Función:</p>
+              <ol className="list-decimal mb-10">
+                <li className="m-2">Creamos un vector con 500 puntos equidistantes entre 0 y el tiempo final. (se usara como eje)</li>
+                <li className="m-2">Por cada tiempo en el vector, calculamos la posicion en la trayectoria.</li>
+                <li className="m-2">Calcula la posicion del punto mas alto.</li>
+                <li className="m-2">Crea el grafico, sus labels, colores, etc.</li>
+                <li className="m-2">Inserta los datos en el grafico y lo imprime.</li>
+              </ol>
             </div>
           </div>
         </div>
@@ -327,42 +385,6 @@ const Presentacion = () => {
       )
     },
 
-    // Slide 11: Conceptos físicos clave
-    {
-      title: "Conceptos Físicos Clave",
-      content: (
-        <div className="space-y-6 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-600 mb-6">Resumen Teórico</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="font-bold text-lg mb-2">🔵 MRUV</p>
-              <p className="text-sm">Movimiento con aceleración constante (eje z)</p>
-            </div>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <p className="font-bold text-lg mb-2">🔵 MRU</p>
-              <p className="text-sm">Movimiento uniforme (ejes x, y)</p>
-            </div>
-            <div className="bg-red-50 p-4 rounded-lg">
-              <p className="font-bold text-lg mb-2">🔴 Gravedad</p>
-              <p className="text-sm">Única fuerza actuando (9.81 m/s²)</p>
-            </div>
-            <div className="bg-yellow-50 p-4 rounded-lg">
-              <p className="font-bold text-lg mb-2">🟡 Independencia</p>
-              <p className="text-sm">Cada eje evoluciona independientemente</p>
-            </div>
-            <div className="bg-purple-50 p-4 rounded-lg">
-              <p className="font-bold text-lg mb-2">🟣 Trayectoria</p>
-              <p className="text-sm">Curva parabólica en el espacio 3D</p>
-            </div>
-            <div className="bg-pink-50 p-4 rounded-lg">
-              <p className="font-bold text-lg mb-2">🔴 Punto máximo</p>
-              <p className="text-sm">Cuando velocidad vertical = 0</p>
-            </div>
-          </div>
-        </div>
-      )
-    },
-
     // Slide 12: Conclusiones
     {
       title: "Conclusiones",
@@ -394,7 +416,7 @@ const Presentacion = () => {
         <div className="flex flex-col items-center justify-center h-full space-y-8">
           <div className="text-6xl">🎓</div>
           <h1 className="text-5xl font-bold text-blue-600">¡Gracias!</h1>
-          <p className="text-2xl text-gray-600">¿Preguntas?</p>
+          <p className="text-2xl text-gray-600">¿Preguntas? (por favor no)</p>
         </div>
       )
     }

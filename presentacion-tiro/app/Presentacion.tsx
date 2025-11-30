@@ -121,8 +121,8 @@ const Presentacion = () => {
             <div className="text-8xl">⬇️</div>
           </div>
           <div className="bg-red-50 p-6 rounded-lg border-2 border-red-300">
-            <p className="text-2xl font-bold text-center mb-4">g = 9.81 m/s²</p>
-            <p className="text-lg text-center">Actúa solo en dirección <strong>-z</strong> (hacia abajo)</p>
+            <p className="text-2xl font-bold text-center mb-4">g = -9.81 m/s²</p>
+            <p className="text-lg text-center">Actúa solo en dirección <strong>z</strong> (hacia abajo)</p>
           </div>
           <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="bg-gray-100 p-4 rounded-lg text-center">
@@ -161,7 +161,7 @@ const Presentacion = () => {
             </div>
           </div>
           <p className="text-lg text-gray-600 text-center mt-4">
-            Si vᵤ₀ &le; 0 , el punto mas alto sera la posicion inicial (tiro parabolico en descenso)
+            Si vᵤ₀ &le; 0 , el punto más alto sera la posición inicial (tiro parabólico en descenso)
           </p>
         </div>
       )
@@ -206,10 +206,10 @@ const Presentacion = () => {
             <div className="bg-blue-50 p-4 rounded-lg">
               <p className="font-bold">⚙️ Función:</p>
               <ol className="list-decimal mb-10">
-                <li className="m-2">Tomamos del input el vector posicion inical (x0, y0, z0), el vector velocidad inicial (vx0, vy0, vz0) y el tiempo final (t).</li>
-                <li className="m-2">Guarda el vector posicion y velocidad en 2 arrays diferentes.</li>
-                <li className="m-2">Calcula la posicion en el tiempo final t.</li>
-                <li className="m-2">Grafica el punto final, el punto mas alto y la trayectoria.</li>
+                <li className="m-2">Tomamos del input el vector posicion inicial (x0, y0, z0), el vector velocidad inicial (vx0, vy0, vz0) y el tiempo final (t).</li>
+                <li className="m-2">Guarda el vector posición y velocidad en 2 arrays diferentes.</li>
+                <li className="m-2">Calcula la posición en el tiempo final t.</li>
+                <li className="m-2">Grafica el punto final, el punto más alto y la trayectoria.</li>
               </ol>
             </div>
           </div>
@@ -242,7 +242,7 @@ const Presentacion = () => {
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
               <p className="font-bold">⚙️ Función:</p>
-              <p>Calcula la posicion del punto en la trayectoria en el tiempo t y lo devuelve como un vector posicion.</p>
+              <p>Calcula la posición del punto en la trayectoria en el tiempo t y lo devuelve como un vector posición.</p>
             </div>
           </div>
         </div>
@@ -278,7 +278,7 @@ const Presentacion = () => {
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
               <p className="font-bold">⚙️ Función:</p>
-              <p>Calcula el punto mas alto de la trayectoria. Si la velocidad en el eje z es menor o igual a 0, el punto mas alto es al comenzar el tiro.</p>
+              <p>Calcula el punto más alto de la trayectoria. Si la velocidad en el eje z es menor o igual a 0, el punto más alto es al comenzar el tiro.</p>
             </div>
           </div>
         </div>
@@ -290,7 +290,7 @@ const Presentacion = () => {
       title: "Código: Punto Máximo",
       content: (
         <div className="space-y-6 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-600 mb-6">punto_mas_alto()</h2>
+          <h2 className="text-3xl font-bold text-blue-600 mb-6">graficar_trayectoria()</h2>
           <div className="bg-gray-900 text-green-400 p-6 rounded-lg font-mono text-sm">
             <pre>{`def graficar_trayectoria(r0, v0, t_final, g=9.81):
     tiempos = np.linspace(0, t_final, 500)
@@ -300,23 +300,30 @@ const Presentacion = () => {
         pos = posicion_tiro_parabolico(r0, v0, t, g)
         xs.append(pos[0]); ys.append(pos[1]); zs.append(pos[2])
 
+    # Calcular punto más alto
     t_max, pos_max = punto_mas_alto(r0, v0, g)
 
+    print(f"\\n ==== El punto mas alto es alcanzado a los {t_max} segundos ====\\n")
+
+    # Gráfico en 3D
     fig = plt.figure(figsize=(8, 6))
     ax = fig.add_subplot(111, projection='3d')
 
     ax.plot(xs, ys, zs, label="Trayectoria")
 
+    # Marcar el punto maximo
     ax.scatter(pos_max[0], pos_max[1], pos_max[2], s=60, color='red', label="Punto más alto")
     ax.text(pos_max[0], pos_max[1], pos_max[2],
             f"  Máximo\\n  z={pos_max[2]:.2f} m", color='red')
 
+    # Datos del gráfico
     ax.set_title("Trayectoria del tiro parabólico en 3D")
     ax.set_xlabel("x(t) [m]")
     ax.set_ylabel("y(t) [m]")
     ax.set_zlabel("z(t) [m]")
     ax.legend()
 
+    # Opcional: línea del suelo
     ax.plot(xs, ys, np.zeros_like(xs), linestyle='--', alpha=0.3)
 
     plt.show()`}</pre>
@@ -329,11 +336,11 @@ const Presentacion = () => {
             <div className="bg-blue-50 p-4 rounded-lg">
               <p className="font-bold">⚙️ Función:</p>
               <ol className="list-decimal mb-10">
-                <li className="m-2">Creamos un vector con 500 puntos equidistantes entre 0 y el tiempo final. (se usara como eje)</li>
-                <li className="m-2">Por cada tiempo en el vector, calculamos la posicion en la trayectoria.</li>
-                <li className="m-2">Calcula la posicion del punto mas alto.</li>
-                <li className="m-2">Crea el grafico, sus labels, colores, etc.</li>
-                <li className="m-2">Inserta los datos en el grafico y lo imprime.</li>
+                <li className="m-2">Creamos un vector con 500 puntos equidistantes entre 0 y el tiempo final. (se usará como eje)</li>
+                <li className="m-2">Por cada tiempo en el vector, calculamos la posición en la trayectoria.</li>
+                <li className="m-2">Calcula la posición del punto más alto.</li>
+                <li className="m-2">Crea el gráfico, sus labels, colores, etc.</li>
+                <li className="m-2">Inserta los datos en el gráfico y lo imprime.</li>
               </ol>
             </div>
           </div>
@@ -341,12 +348,12 @@ const Presentacion = () => {
       )
     },
 
-    // Slide 10: Ejemplo práctico
+    // Slide 11: Ejemplo práctico 1
     {
       title: "Ejemplo de Uso",
       content: (
         <div className="space-y-6 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-600 mb-6">Caso Práctico</h2>
+          <h2 className="text-3xl font-bold text-blue-600 mb-6">Caso Práctico 1</h2>
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="bg-blue-50 p-4 rounded-lg">
@@ -365,7 +372,7 @@ const Presentacion = () => {
             <div className="space-y-4">
               <div className="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-400">
                 <p className="font-bold text-lg mb-2">🎯 Resultados:</p>
-                <p className="font-mono">t_max ≈ 2.04 s</p>
+                <p className="font-mono">t_max ≈ 2.0387 s</p>
                 <p className="font-mono">z_max ≈ 20.39 m</p>
               </div>
               <div className="bg-purple-50 p-4 rounded-lg">
@@ -385,29 +392,133 @@ const Presentacion = () => {
       )
     },
 
-    // Slide 12: Conclusiones
+    // Slide 12: Ejemplo práctico 2
     {
-      title: "Conclusiones",
+      title: "Ejemplo de Uso",
       content: (
         <div className="space-y-6 text-gray-700">
-          <h2 className="text-3xl font-bold text-blue-600 mb-8">Conclusiones</h2>
-          <div className="space-y-4">
-            <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-              <p className="text-xl">✅ El código modela correctamente el tiro parabólico en 3D</p>
+          <h2 className="text-3xl font-bold text-blue-600 mb-6">Caso Práctico 2</h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="font-bold text-lg mb-2">📍 Posición inicial:</p>
+                <p className="font-mono">x₀ = 0 m</p>
+                <p className="font-mono">y₀ = 0 m</p>
+                <p className="font-mono">z₀ = 0 m</p>
+              </div>
+              <div className="bg-green-50 p-4 rounded-lg">
+                <p className="font-bold text-lg mb-2">⚡ Velocidad inicial:</p>
+                <p className="font-mono">vₓ₀ = 0 m/s</p>
+                <p className="font-mono">vᵧ₀ = 0 m/s</p>
+                <p className="font-mono">vᵤ₀ = 20 m/s</p>
+              </div>
             </div>
-            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-              <p className="text-xl">✅ Aplica las ecuaciones de cinemática del MRUV</p>
-            </div>
-            <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
-              <p className="text-xl">✅ Permite visualizar y analizar el movimiento</p>
-            </div>
-            <div className="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
-              <p className="text-xl">✅ Es una herramienta educativa útil para entender la física</p>
+            <div className="space-y-4">
+              <div className="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-400">
+                <p className="font-bold text-lg mb-2">🎯 Resultados:</p>
+                <p className="font-mono">t_max ≈ 2.0387 s</p>
+                <p className="font-mono">z_max ≈ 20.39 m</p>
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <p className="text-lg">El proyectil alcanza su altura máxima a los ~2 segundos</p>
+                <br />
+                <Image
+                    src="/TiroVertical.png"
+                    alt="Tiro parabolico graficado"
+                    width={500}
+                    height={300}
+                    className="rounded-lg"
+                />
+              </div> 
             </div>
           </div>
         </div>
       )
     },
+
+    // Slide 13: Ejemplo práctico 2
+    {
+      title: "Ejemplo de Uso",
+      content: (
+        <div className="space-y-6 text-gray-700">
+          <h2 className="text-3xl font-bold text-blue-600 mb-6">Caso Práctico 3</h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="font-bold text-lg mb-2">📍 Posición inicial:</p>
+                <p className="font-mono">x₀ = 0 m</p>
+                <p className="font-mono">y₀ = 0 m</p>
+                <p className="font-mono">z₀ = 5 m</p>
+              </div>
+              <div className="bg-green-50 p-4 rounded-lg">
+                <p className="font-bold text-lg mb-2">⚡ Velocidad inicial:</p>
+                <p className="font-mono">vₓ₀ = 0 m/s</p>
+                <p className="font-mono">vᵧ₀ = 0 m/s</p>
+                <p className="font-mono">vᵤ₀ = 0 m/s</p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-400">
+                <p className="font-bold text-lg mb-2">🎯 Resultados:</p>
+                <p className="font-mono">t_max ≈ 0 s</p>
+                <p className="font-mono">z_max ≈ 5 m</p>
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <p className="text-lg">El proyectil está en su punto más alto al instante de comenzar la caída</p>
+                <br />
+                <Image
+                    src="/CaidaLibre.png"
+                    alt="Tiro parabolico graficado"
+                    width={500}
+                    height={300}
+                    className="rounded-lg"
+                />
+              </div> 
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+
+    {
+  title: "Conclusiones",
+  content: (
+    <div className="space-y-6 text-gray-700">
+      <h2 className="text-3xl font-bold text-blue-600 mb-8">Conclusiones</h2>
+      <div className="space-y-4">
+
+        <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+          <p className="text-lg">
+            ✅ El programa permite modelar correctamente la cinemática de una partícula sometida únicamente al campo gravitatorio.
+          </p>
+        </div>
+
+        <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+          <p className="text-lg">
+            ✅ Se verifica la independencia de los movimientos en los tres ejes:  
+            las componentes <strong>x</strong> e <strong>y</strong> siguen un MRU, mientras que la componente <strong>z</strong> corresponde a un MRUV debido a la gravedad.
+          </p>
+        </div>
+
+        <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+          <p className="text-lg">
+            ✅ La visualización gráfica permite corroborar que la trayectoria resultante posee forma parabólica, como en un tiro parabólico ideal sin resistencia del aire y con gravedad constante.
+          </p>
+        </div>
+
+        <div className="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+          <p className="text-lg">
+            ✅ El programa constituye una herramienta educativa útil para analizar y comprender el comportamiento físico del movimiento parabólico.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  )
+},
+
+
 
     // Slide 13: Gracias
     {

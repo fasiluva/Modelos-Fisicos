@@ -41,13 +41,15 @@ def graficar_trayectoria(r0, v0, t_final, g=9.81):
     # Calcular punto más alto
     t_max, pos_max = punto_mas_alto(r0, v0, g)
 
+    print(f"\n ==== El punto mas alto es alcanzado a los {t_max} segundos ====\n")
+
     # Gráfico en 3D
     fig = plt.figure(figsize=(8, 6))
     ax = fig.add_subplot(111, projection='3d')
 
     ax.plot(xs, ys, zs, label="Trayectoria")
 
-    # Si existe punto máximo, marcarlo
+    # Marcar el punto maximo
     ax.scatter(pos_max[0], pos_max[1], pos_max[2], s=60, color='red', label="Punto más alto")
     ax.text(pos_max[0], pos_max[1], pos_max[2],
             f"  Máximo\n  z={pos_max[2]:.2f} m", color='red')
@@ -95,142 +97,3 @@ if __name__ == "__main__":
 
     # Graficar
     graficar_trayectoria(r0, v0, t)
-
-# Aquí tenés un **listado claro, simple y completo** de los **temas mínimos de Física** necesarios para **entender, explicar y resolver** el ejercicio del tiro parabólico en 3D.
-# 
-# ---
-# 
-# # ✅ **TEMAS MÍNIMOS DE FÍSICA PARA ESTE TRABAJO**
-# 
-# ## 1️⃣ **Vectores en tres dimensiones**
-# 
-# Debés manejar:
-# 
-# * Representación de un vector como ((x, y, z))
-# * Suma de vectores
-# * Producto por un escalar
-# * Interpretación de un vector posición y un vector velocidad
-# 
-# > Es fundamental porque el movimiento se describe en 3D, y la posición, velocidad y aceleración son vectores.
-# 
-# ---
-# 
-# ## 2️⃣ **Cinemática del movimiento rectilíneo uniformemente variado (MRUV)**
-# 
-# Es el movimiento con **aceleración constante**.
-# 
-# Las ecuaciones que necesitás saber son:
-# 
-# [
-# r(t)=r_0 + v_0,t + \frac{1}{2} a t^2
-# ]
-# 
-# Separadas por coordenadas:
-# 
-# * (x(t) = x_0 + v_{x0}, t)
-# * (y(t) = y_0 + v_{y0}, t)
-# * (z(t) = z_0 + v_{z0}, t - \frac{1}{2} g t^2)
-# 
-# > Esto se usa para deducir cómo evoluciona cada componente del movimiento.
-# 
-# ---
-# 
-# ## 3️⃣ **Movimiento en 3D con aceleración constante**
-# 
-# Saber que:
-# 
-# * Si la aceleración actúa solo en una dirección, solo esa componente cambia.
-# * Gravedad → actúa en **-z**, entonces (a_x = 0), (a_y = 0), (a_z = -g).
-# 
-# > Por eso x e y son movimientos rectilíneos uniformes, y z es un MRUV.
-# 
-# ---
-# 
-# ## 4️⃣ **Gravedad cerca de la superficie terrestre**
-# 
-# Conocer:
-# 
-# * La aceleración de la gravedad vale aproximadamente
-#   [
-#   g = 9.81\ \text{m/s}^2
-#   ]
-# * Apunta hacia abajo → en el eje z es negativa.
-# 
-# > Este es el único efecto físico considerado en el modelo.
-# 
-# ---
-# 
-# ## 5️⃣ **Condiciones iniciales**
-# 
-# Saber qué significan:
-# 
-# * (r_0 = (x_0, y_0, z_0))
-# * (v_0 = (v_{x0}, v_{y0}, v_{z0}))
-# 
-# > Las ecuaciones del movimiento siempre dependen del estado inicial.
-# 
-# ---
-# 
-# ## 6️⃣ **Punto más alto de la trayectoria**
-# 
-# Ocurre cuando la **velocidad vertical es cero**:
-# 
-# [
-# v_z(t) = v_{z0} - g t = 0
-# \Rightarrow
-# t_{\max} = \frac{v_{z0}}{g}
-# ]
-# 
-# > Este concepto es esencial para identificar el vértice de la parábola en la componente vertical.
-# 
-# ---
-# 
-# ## 7️⃣ **Concepto de trayectoria**
-# 
-# Entender que la trayectoria es la curva que describe la partícula en el espacio 3D.
-# 
-# > La gráfica representa físicamente el camino que recorre la partícula.
-# 
-# ---
-# 
-# # 🟢 OPCIONAL (pero útil para explicarlo mejor)
-# 
-# ## 8️⃣ **Independencia de movimientos**
-# 
-# La idea de que:
-# 
-# * El movimiento horizontal (x, y) es independiente del vertical (z).
-# * Solo el eje z está acelerado.
-# 
-# ## 9️⃣ **Diagramas de fuerzas**
-# 
-# Solo hay una fuerza:
-# 
-# * Peso: (\vec{P} = m \vec{g})
-# 
-# Explicar que esto implica aceleración constante.
-# 
-# ## 🔟 **Proyección de vectores**
-# 
-# Cómo separar la velocidad inicial en componentes x, y, z si está dada en ángulos.
-# 
-# ---
-# 
-# # 🎯 **Con esto, podés:**
-# 
-# ✔ resolver las ecuaciones
-# ✔ explicar por qué el movimiento tiene esa forma
-# ✔ justificar el punto máximo
-# ✔ interpretar la gráfica en 3D
-# ✔ presentar el trabajo con claridad
-# 
-# --- 
-# 
-# Si querés, también te puedo preparar:
-# 
-# 📌 Un resumen aún más corto para exponer
-# 📌 Un mapa conceptual visual
-# 📌 Explicaciones con dibujos o esquemas
-# 
-# Solo decime 😊
-

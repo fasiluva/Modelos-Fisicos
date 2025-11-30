@@ -22,9 +22,11 @@ No existe comunicación entre la página y el programa; el archivo `modelos.py` 
 
 ## 🧠 `modelos.py`
 
-`modelos.py` contiene el código principal del proyecto.
+`modelos.py` contiene el código principal del proyecto. 
 
 ### ▶️ Ejecutarlo directamente
+
+En la carpeta `presentacion-tiro/public/`, ejecutar lo siguiente:
 
 ```bash
 pip install -r requirements.txt

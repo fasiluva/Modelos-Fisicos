@@ -61,7 +61,7 @@ def graficar_trayectoria(r0, v0, t_final, g=9.81):
     ax.set_zlabel("z(t) [m]")
     ax.legend()
 
-    # Opcional: línea del suelo
+    # Línea del suelo
     ax.plot(xs, ys, np.zeros_like(xs), linestyle='--', alpha=0.3)
 
     plt.show()

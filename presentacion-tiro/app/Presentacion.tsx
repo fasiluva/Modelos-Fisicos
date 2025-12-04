@@ -32,7 +32,7 @@ const Presentacion = () => {
             <div className="flex items-start space-x-4 p-4 bg-blue-50 rounded-lg ">
               <span className="text-3xl">📐</span>
               <div>
-                <strong>Calcula la trayectoria</strong> de un proyectil en 3 dimensiones
+                <strong>Calcula la trayectoria</strong> de una particula en 3 dimensiones
               </div>
             </div>
             <div className="flex items-start space-x-4 p-4 bg-green-50 rounded-lg">
@@ -44,7 +44,7 @@ const Presentacion = () => {
             <div className="flex items-start space-x-4 p-4 bg-purple-50 rounded-lg">
               <span className="text-3xl">📈</span>
               <div>
-                <strong>Visualiza en 3D</strong> el movimiento del proyectil
+                <strong>Visualiza en 3D</strong> el movimiento de la particula
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@ const Presentacion = () => {
             <div className="text-8xl">⬇️</div>
           </div>
           <div className="bg-red-50 p-6 rounded-lg border-2 border-red-300">
-            <p className="text-2xl font-bold text-center mb-4">g = -9.81 m/s²</p>
+            <p className="text-2xl font-bold text-center mb-4">g = 9.81 m/s²</p>
             <p className="text-lg text-center">Actúa solo en dirección <strong>z</strong> (hacia abajo)</p>
           </div>
           <div className="grid grid-cols-3 gap-4 mt-6">
@@ -323,7 +323,6 @@ const Presentacion = () => {
     ax.set_zlabel("z(t) [m]")
     ax.legend()
 
-    # Opcional: línea del suelo
     ax.plot(xs, ys, np.zeros_like(xs), linestyle='--', alpha=0.3)
 
     plt.show()`}</pre>
